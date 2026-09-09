@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jesús Navarro — Unity, web, visión por computador</title>
+<meta name="description" content="Portfolio de Jesús Navarro. Estudiante de Tecnología Digital y Multimedia en la UPV, Valencia. Proyectos de Unity, React, visión por computador, procesado de señal y sistemas empotrados.">
+<meta name="color-scheme" content="light">
+
+<meta property="og:title" content="Jesús Navarro — Unity, web, visión por computador">
+<meta property="og:description" content="Construyo cosas que viven entre el motor de juego y el navegador.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jezuzo.github.io/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:     #edeff3;
+    --panel:     #ffffff;
+    --wash:      #dde2f7;
+    --ink:       #131a2b;
+    --ink-soft:  #59617a;
+    --rule:      #c7cddb;
+    --rule-firm: #131a2b;
+    --cobalt:    #1f3fd1;
+
+    --shell: 1120px;
+    --spec: 11.5rem;
+
+    --grot: "Archivo", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; }
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; animation:none !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:clamp(1.02rem, .97rem + .3vw, 1.19rem);
+    line-height:1.7;
+    font-variation-settings:"opsz" 16;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; }
+  ::selection{ background:var(--cobalt); color:#fff; }
+  :focus-visible{ outline:3px solid var(--cobalt); outline-offset:3px; }
+
+  code{ font-family:ui-monospace, "SF Mono", Menlo, monospace; font-size:.88em; }
+
+  .shell{ width:min(100% - 2.5rem, var(--shell)); margin-inline:auto; }
+
+  .skip{ position:absolute; left:-9999px; background:var(--cobalt); color:#fff; padding:.75rem 1rem; z-index:10; font-family:var(--grot); }
+  .skip:focus{ left:1rem; top:1rem; }
+
+  /* ---------- Masthead ---------- */
+
+  .masthead{
+    border-bottom:1px solid var(--rule);
+  }
+  .masthead__inner{
+    display:flex; flex-wrap:wrap; gap:.75rem 1.5rem;
+    align-items:baseline; justify-content:space-between;
+    padding-block:1.1rem;
+    font-family:var(--grot);
+    font-size:.88rem;
+  }
+  .masthead__name{ font-weight:700; letter-spacing:-.01em; }
+  .masthead nav{ display:flex; gap:1.5rem; }
+  .masthead nav a{ text-decoration:none; color:var(--ink-soft); }
+  .masthead nav a:hover{ color:var(--cobalt); }
+
+  /* ---------- Opening ---------- */
+
+  .opening{ padding-block: clamp(3.25rem, 8vw, 6rem) clamp(2.5rem, 5vw, 4rem); }
+
+  .statement{
+    font-family:var(--grot);
+    font-weight:700;
+    font-size:clamp(2.1rem, 1.2rem + 4.2vw, 4.4rem);
+    line-height:1.03;
+    letter-spacing:-.032em;
+    margin:0 0 2rem;
+    max-width:16ch;
+    text-wrap:balance;
+  }
+
+  .opening__body{
+    max-width:58ch;
+    margin:0 0 1.5rem;
+    font-size:1.12em;
+  }
+
+  .opening__status{
+    font-family:var(--grot);
+    font-size:.92rem;
+    font-weight:500;
+    color:var(--ink-soft);
+    max-width:48ch;
+    margin:0;
+  }
+  .opening__status b{ color:var(--cobalt); font-weight:600; }
+
+  /* ---------- Index of work ---------- */
+
+  .contents{ padding-bottom:clamp(2.5rem, 6vw, 4rem); }
+
+  .contents h2, .section__title{
+    font-family:var(--grot);
+    font-size:.88rem;
+    font-weight:600;
+    letter-spacing:.02em;
+    color:var(--cobalt);
+    margin:0 0 1rem;
+    padding-bottom:.6rem;
+    border-bottom:2px solid var(--rule-firm);
+  }
+
+  .contents ol{ list-style:none; margin:0; padding:0; }
+  .contents a{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:.35rem 1.5rem;
+    align-items:baseline;
+    padding:.85rem 0;
+    border-bottom:1px solid var(--rule);
+    text-decoration:none;
+    font-family:var(--grot);
+    transition:color .12s;
+  }
+  .contents a:hover{ color:var(--cobalt); }
+  .contents b{ font-weight:600; font-size:1.06rem; letter-spacing:-.01em; }
+  .contents span{ font-size:.86rem; color:var(--ink-soft); }
+  .contents a:hover span{ color:var(--cobalt); }
+
+  /* ---------- Sections ---------- */
+
+  .section{ padding-block: clamp(2.75rem, 6vw, 4.5rem); }
+  .section--tight{ padding-top:0; }
+
+  /* ---------- Entry layout (spec column + prose) ---------- */
+
+  .entry{
+    display:grid;
+    gap:.9rem 2.5rem;
+    padding-block:2.5rem;
+    border-top:1px solid var(--rule);
+  }
+  .entries .entry:last-child{ border-bottom:1px solid var(--rule); }
+
+  @media (min-width:860px){
+    .entry{ grid-template-columns: var(--spec) minmax(0,1fr); }
+    .entry__spec{
+      text-align:right;
+      border-right:1px solid var(--rule);
+      padding-right:2.5rem;
+      margin-right:-1.25rem;
+    }
+  }
+
+  .entry__spec{
+    font-family:var(--grot);
+    font-size:.82rem;
+    line-height:1.55;
+    color:var(--ink-soft);
+  }
+  .entry__spec b{
+    display:block;
+    color:var(--ink);
+    font-weight:600;
+    margin-bottom:.3rem;
+  }
+
+  .entry h3{
+    font-family:var(--grot);
+    font-weight:700;
+    font-size:clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+    line-height:1.15;
+    letter-spacing:-.022em;
+    margin:0 0 .8rem;
+  }
+  .entry p{ margin:0 0 1rem; max-width:64ch; }
+  .entry p strong{ font-weight:500; box-shadow:inset 0 -.42em 0 var(--wash); }
+
+  .stack{
+    list-style:none; display:flex; flex-wrap:wrap; gap:.3rem .5rem;
+    margin:0 0 1.15rem; padding:0;
+    font-family:var(--grot); font-size:.79rem; color:var(--ink-soft);
+  }
+  .stack li{ border:1px solid var(--rule); padding:.14rem .5rem; background:var(--panel); }
+
+  .links{ list-style:none; display:flex; flex-wrap:wrap; gap:1.35rem; margin:0; padding:0; font-family:var(--grot); }
+  .links a{
+    font-size:.92rem; font-weight:600; text-decoration:none;
+    color:var(--cobalt);
+    border-bottom:2px solid var(--cobalt);
+    padding-bottom:1px;
+    transition:background .12s;
+  }
+  .links a:hover{ background:var(--wash); }
+  .links span{ font-size:.92rem; color:var(--ink-soft); }
+
+  /* ---------- Featured ---------- */
+
+  .featured{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-top:4px solid var(--cobalt);
+    padding:clamp(1.5rem, 4vw, 2.75rem);
+  }
+  .featured .entry{ border:0; padding:0; }
+  @media (min-width:860px){
+    .featured .entry__spec{ border-right-color:var(--rule); }
+  }
+  .featured h3{ font-size:clamp(1.5rem, 1.15rem + 1.5vw, 2.3rem); max-width:22ch; text-wrap:balance; }
+
+  /* ---------- Toolkit ---------- */
+
+  .toolkit{ display:grid; gap:2rem 2.5rem; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr)); margin:0; padding:0; }
+  .toolkit dt{
+    font-family:var(--grot); font-weight:700; font-size:1rem;
+    margin-bottom:.4rem; padding-bottom:.4rem;
+    border-bottom:1px solid var(--rule);
+  }
+  .toolkit dd{ margin:0; font-size:.98rem; color:var(--ink-soft); }
+
+  /* ---------- Contact ---------- */
+
+  .contact p{
+    font-family:var(--grot);
+    font-weight:600;
+    font-size:clamp(1.35rem, 1.05rem + 1.4vw, 2.1rem);
+    line-height:1.2;
+    letter-spacing:-.02em;
+    max-width:26ch;
+    margin:0 0 1.75rem;
+    text-wrap:balance;
+  }
+  .contact ul{ list-style:none; display:flex; flex-wrap:wrap; gap:.7rem; margin:0; padding:0; font-family:var(--grot); }
+  .contact a{
+    display:inline-block; padding:.62rem 1.2rem;
+    border:1px solid var(--ink); text-decoration:none;
+    font-weight:600; font-size:.94rem;
+    transition:background .12s, color .12s, border-color .12s;
+  }
+  .contact a:hover{ background:var(--ink); color:var(--paper); }
+  .contact li:first-child a{ background:var(--cobalt); border-color:var(--cobalt); color:#fff; }
+  .contact li:first-child a:hover{ background:var(--ink); border-color:var(--ink); }
+
+  footer{
+    border-top:1px solid var(--rule);
+    padding-block:1.75rem 2.5rem;
+    font-family:var(--grot);
+    font-size:.85rem;
+    color:var(--ink-soft);
+  }
+  footer p{ margin:0; }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<div class="masthead">
+  <div class="shell masthead__inner">
+    <span class="masthead__name">Jesús Navarro</span>
+    <nav>
+      <a href="#trabajo">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://github.com/jezuzo">GitHub</a>
+    </nav>
+  </div>
+</div>
+
+<header class="shell opening">
+  <h1 class="statement">Construyo cosas que viven entre el motor de juego y el navegador.</h1>
+
+  <p class="opening__body">
+    Estudiante de último curso de Tecnología Digital y Multimedia en la UPV. Trabajo sobre todo con
+    Unity y C# por un lado y con React y TypeScript por otro, y lo que más me interesa es el sitio
+    donde los dos se tocan: meter un juego dentro de una página y hacer que se hablen. Por el camino
+    he acabado tocando visión por computador, procesado de señal, criptografía y sistemas empotrados,
+    que resultaron ser el mismo problema con otra ropa.
+  </p>
+
+  <p class="opening__status">Valencia. <b>Buscando mi primer trabajo como desarrollador.</b></p>
+</header>
+
+<div class="shell contents">
+  <h2>Índice de proyectos</h2>
+  <ol>
+    <li><a href="#tfg"><b>Plataforma educativa de aprendizaje automático</b><span>Unity y React, en curso</span></a></li>
+    <li><a href="#jesusnake"><b>Jesusnake</b><span>Videojuego, Unity 6</span></a></li>
+    <li><a href="#blackjiack"><b>BlackjIAck</b><span>Visión por computador, YOLOv8</span></a></li>
+    <li><a href="#sports"><b>Sports Team Manager</b><span>Aplicación web, React y TypeScript</span></a></li>
+    <li><a href="#pixelsounds"><b>PixelSounds</b><span>Procesado de señal, Python</span></a></li>
+    <li><a href="#drm"><b>Content Protection DRM</b><span>Seguridad y criptografía, Python</span></a></li>
+    <li><a href="#pokemon"><b>Pokemon Arduino Combat</b><span>Sistemas empotrados, M5Stack</span></a></li>
+  </ol>
+</div>
+
+<main id="contenido">
+
+  <section class="shell section section--tight" id="tfg">
+    <h2 class="section__title">Proyecto principal</h2>
+
+    <div class="featured">
+      <article class="entry">
+        <p class="entry__spec">
+          <b>Trabajo de Fin de Grado</b>
+          En curso<br>Proyecto individual<br>UPV, 2026
+        </p>
+        <div>
+          <h3>Plataforma educativa para enseñar aprendizaje automático con videojuegos</h3>
+          <p>
+            Una plataforma web que integra entornos de juego hechos en Unity dentro de una interfaz
+            en React para explicar dos paradigmas de aprendizaje automático: <strong>aprendizaje por
+            refuerzo</strong> y <strong>aprendizaje por imitación</strong>. Cada juego se puede
+            jugar, observar mientras lo resuelve un agente, o usar para grabar demostraciones que
+            después imita ese agente.
+          </p>
+          <p>
+            La restricción interesante fue que ML-Agents no puede entrenar en tiempo real dentro de
+            WebGL. La solución: cargar secuencialmente <strong>checkpoints preentrenados en formato
+            <code>.onnx</code></strong>, de modo que el usuario ve progresar el entrenamiento en el
+            navegador sin que haya entrenamiento real detrás. El aprendizaje se conserva; el coste
+            computacional desaparece.
+          </p>
+          <ul class="stack">
+            <li>Unity</li><li>C#</li><li>ML-Agents</li><li>WebGL</li><li>React</li><li>JavaScript</li><li>ONNX</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="shell section" id="trabajo">
+    <h2 class="section__title">Proyectos</h2>
+
+    <div class="entries">
+
+      <article class="entry" id="jesusnake">
+        <p class="entry__spec">
+          <b>Videojuego</b>
+          Proyecto individual<br>Publicado en itch.io
+        </p>
+        <div>
+          <h3>Jesusnake</h3>
+          <p>
+            Un Snake que usa el juego clásico como excusa para resolver problemas que un Snake de
+            tutorial no plantea. La simulación es discreta sobre una rejilla de enteros y el render
+            interpola entre casillas, así que es determinista y a la vez fluido. Las pulsaciones
+            entran en una cola y se consumen una por paso, lo que elimina el giro de 180° a
+            velocidad alta. El cuerpo es un <strong>TrailRenderer</strong> cuya curva de anchura se
+            genera en tiempo de ejecución para que un bulto recorra la serpiente al comer.
+          </p>
+          <p>
+            La parte con más lógica no es generar posiciones para las manzanas, sino
+            <strong>rechazarlas</strong>: un validador descarta casillas encerradas o inalcanzables
+            para que el azar no pueda dejar una partida sin solución.
+          </p>
+          <ul class="stack"><li>Unity 6</li><li>C#</li><li>URP 2D</li><li>WebGL</li><li>Aseprite</li></ul>
+          <ul class="links">
+            <li><a href="https://jesudev.itch.io/jesusnake">Jugar en el navegador</a></li>
+            <li><a href="https://github.com/jezuzo/Jesusnake">Código</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry" id="blackjiack">
+        <p class="entry__spec">
+          <b>Visión por computador</b>
+          Grupo de tres<br>Imagen y Vídeo Digital, UPV
+        </p>
+        <div>
+          <h3>BlackjIAck</h3>
+          <p>
+            Un asistente de Blackjack que mira la mesa por la webcam, reconoce las cartas y
+            recomienda la jugada. El pipeline detecta contornos con Canny, filtra por área para
+            localizar candidatas a carta, hace zoom sobre cada región y las clasifica con
+            <strong>YOLOv8</strong> entrenado sobre 53 clases, separando la zona del dealer de la
+            del jugador.
+          </p>
+          <p>
+            Mi parte fue el <strong>motor de estrategia</strong>. La tabla de decisión de Blackjack
+            se publica siempre para manos de dos cartas, así que había que generalizarla: el as vale
+            11 hasta que la mano se pasaría de 21, momento en que se degrada a 1, y las manos blandas
+            se indexan por su excedente sobre el as en lugar de por su total. Con eso la
+            recomendación funciona con cualquier número de cartas sobre la mesa.
+          </p>
+          <ul class="stack"><li>Python</li><li>YOLOv8</li><li>PyTorch</li><li>OpenCV</li><li>Ultralytics</li></ul>
+          <ul class="links">
+            <li><a href="https://github.com/jezuzo/BackjIAck">Código</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry" id="sports">
+        <p class="entry__spec">
+          <b>Aplicación web</b>
+          Proyecto individual<br>React y TypeScript
+        </p>
+        <div>
+          <h3>Sports Team Manager</h3>
+          <p>
+            Una SPA para gestionar equipos de fútbol y sus plantillas, hecha para practicar los
+            cimientos de una aplicación React seria: contratos de tipos compartidos, una capa de API
+            centralizada y rutas con parámetros en la URL.
+          </p>
+          <p>
+            La decisión más interesante fue el <strong>borrado en cascada</strong>: el backend de
+            pruebas no tiene integridad referencial, así que borrar un equipo dejaba jugadores
+            huérfanos. Reconocer que el servidor no lo garantizaba y resolverlo explícitamente en el
+            cliente resultó ser la mitad más útil del problema.
+          </p>
+          <ul class="stack"><li>React 18</li><li>TypeScript</li><li>Vite</li><li>React Router</li><li>Axios</li></ul>
+          <ul class="links">
+            <li><a href="https://github.com/jezuzo/SportsTeamManager">Código</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry" id="pixelsounds">
+        <p class="entry__spec">
+          <b>Procesado de señal</b>
+          Grupo de cuatro<br>Voz y Audio Digital, UPV
+        </p>
+        <div>
+          <h3>PixelSounds</h3>
+          <p>
+            Una imagen es una matriz de números y un audio es un vector de números. PixelSounds
+            explora esa frontera desde tres ángulos: síntesis de audio a partir de imágenes,
+            visualización de descriptores de audio en vídeo y un códec reversible que guarda una
+            señal sonora dentro de fotogramas.
+          </p>
+          <p>
+            Mi parte fue la <strong>visualización de audio en vídeo</strong>. El hallazgo del módulo
+            fue descubrir que autocorrelar la forma de onda detecta la periodicidad armónica y no el
+            pulso que oye una persona; aplicando la autocorrelación sobre la <strong>envolvente</strong>
+            en lugar de sobre la señal cruda, los golpes caen donde el oyente los espera.
+          </p>
+          <ul class="stack"><li>Python</li><li>NumPy</li><li>SciPy</li><li>librosa</li><li>OpenCV</li><li>ffmpeg</li></ul>
+          <ul class="links">
+            <li><a href="https://github.com/Gabriel-Page-Chiva/PixelSounds">Código</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry" id="drm">
+        <p class="entry__spec">
+          <b>Seguridad</b>
+          Grupo de cuatro<br>Python y criptografía
+        </p>
+        <div>
+          <h3>Content Protection DRM</h3>
+          <p>
+            Una arquitectura DRM completa repartida en cuatro procesos que se comunican por sockets:
+            servidor de contenidos, agente de usuario, módulo de descifrado y servidor de licencias.
+            El contenido viaja cifrado con <strong>AES</strong>, las claves se intercambian con
+            <strong>RSA</strong> y cada solicitud de licencia va firmada digitalmente, de modo que
+            ningún actor confía en otro por defecto.
+          </p>
+          <p>
+            Mi contribución fue la <strong>marca de agua visible</strong> que el servidor estampa
+            sobre las imágenes antes de distribuirlas, para poder trazar por qué cliente pasó cada
+            copia, y el <strong>cifrado del almacén de licencias</strong>, que hasta entonces vivía
+            en claro en disco.
+          </p>
+          <ul class="stack"><li>Python</li><li>cryptography</li><li>AES</li><li>RSA</li><li>Pillow</li><li>Sockets</li></ul>
+          <ul class="links">
+            <li><a href="https://github.com/jezuzo/ContentProtectionDRM">Código</a></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="entry" id="pokemon">
+        <p class="entry__spec">
+          <b>Sistemas empotrados</b>
+          Proyecto individual<br>M5Stack y Arduino
+        </p>
+        <div>
+          <h3>Pokemon Arduino Combat</h3>
+          <p>
+            Un combate Pokémon en tiempo real entre dos dispositivos M5Stack programados con
+            Arduino. Dos máquinas independientes que tienen que mantener sincronizado el estado de
+            un mismo combate, con la latencia de la comunicación como parte del diseño y no como un
+            detalle a esconder.
+          </p>
+          <ul class="stack"><li>Arduino</li><li>C++</li><li>M5Stack</li><li>Comunicación inalámbrica</li></ul>
+          <ul class="links">
+            <li><span>Repositorio en preparación</span></li>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="shell section">
+    <h2 class="section__title">Con qué trabajo</h2>
+    <dl class="toolkit">
+      <div>
+        <dt>Videojuegos</dt>
+        <dd>Unity y C#, scripting de gameplay, URP y post-procesado, sistemas de UI, ML-Agents y exportación a WebGL.</dd>
+      </div>
+      <div>
+        <dt>Web</dt>
+        <dd>React, TypeScript, JavaScript y Node.js. Vite como herramienta de construcción y react-unity-webgl para embeber juegos.</dd>
+      </div>
+      <div>
+        <dt>Señal y visión</dt>
+        <dd>Python con NumPy, SciPy y librosa para audio; OpenCV, PyTorch y YOLO para detección y clasificación de imagen.</dd>
+      </div>
+      <div>
+        <dt>Herramientas</dt>
+        <dd>Git y GitHub en el día a día, Arduino para sistemas empotrados, criptografía aplicada y Aseprite para pixel art.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="shell section contact" id="contacto">
+    <h2 class="section__title">Contacto</h2>
+    <p>Si algo de esto te encaja, escríbeme.</p>
+    <ul>
+      <li><a href="mailto:TU-CORREO@ejemplo.com">Escríbeme</a></li>
+      <li><a href="https://github.com/jezuzo">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/TU-PERFIL/">LinkedIn</a></li>
+      <li><a href="https://jesudev.itch.io/">itch.io</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="shell">
+  <p>Jesús Navarro, Valencia. Hecho a mano en un único archivo HTML.</p>
+</footer>
+
+</body>
+</html>
